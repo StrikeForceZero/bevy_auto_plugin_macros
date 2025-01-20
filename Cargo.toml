@@ -8,4 +8,8 @@ edition = "2021"
 proc-macro = true
 
 [dependencies]
+proc-macro2 = "1"
+syn = { version = "2", features = ["full"] }
+quote = "1"
+thiserror = "2"
 
