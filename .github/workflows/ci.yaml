@@ -1,0 +1,41 @@
+name: CI
+
+on:
+    # Trigger the workflow on push and pull requests to the main branch
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+env:
+    CARGO_TERM_COLOR: always
+    RUSTFLAGS: --deny warnings
+    RUSTDOCFLAGS: --deny warnings
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                toolchain: [nightly]
+                feature-set: [default]
+        steps:
+            # Checkout the repository
+            - name: Checkout code
+              uses: actions/checkout@v3
+            
+            # Install Rust for the selected toolchain
+            - name: Install Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                  profile: minimal
+                  toolchain: ${{ matrix.toolchain }}
+                  override: true
+            
+            # Run tests with the specified feature set
+            - name: Run tests
+              run: |
+                  echo "Testing with ${{ matrix.toolchain }} and features: ${{ matrix.feature-set }}"
+                  cargo test --features "${{ matrix.feature-set }}"
