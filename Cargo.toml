@@ -4,20 +4,19 @@ version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 edition = "2021"
 
-[lib]
-proc-macro = true
-
 [workspace]
 members = ["crates/*"]
 
 [workspace.dependencies]
+proc_macros = { path = "crates/proc_macros" }
 bevy = { version = "0.15" }
-
-[dependencies]
 proc-macro2 = "1"
 syn = { version = "2", features = ["full"] }
 quote = "1"
 thiserror = "2"
+
+[dependencies]
+proc_macros = { workspace = true }
 
 [dev-dependencies]
 bevy = { workspace = true }
