@@ -1,7 +1,7 @@
 use bevy_app::prelude::*;
-use bevy_reflect::prelude::*;
-use bevy_ecs::prelude::*;
 use bevy_auto_plugin_macros::*;
+use bevy_ecs::prelude::*;
+use bevy_reflect::prelude::*;
 use std::any::Any;
 
 #[auto_register_type]

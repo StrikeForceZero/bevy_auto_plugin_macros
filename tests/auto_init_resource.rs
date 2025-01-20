@@ -1,6 +1,6 @@
 use bevy_app::prelude::*;
-use bevy_ecs::prelude::*;
 use bevy_auto_plugin_macros::*;
+use bevy_ecs::prelude::*;
 
 #[auto_init_resource]
 #[derive(Resource, Default)]
