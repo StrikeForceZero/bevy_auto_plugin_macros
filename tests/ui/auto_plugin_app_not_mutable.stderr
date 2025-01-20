@@ -1,0 +1,5 @@
+error: auto_plugin attribute must be used on a function with a `&mut bevy::app::App` parameter
+ --> tests/ui/auto_plugin_app_not_mutable.rs:4:11
+  |
+4 | fn plugin(_app: &bevy::app::App) {}
+  |           ^^^^^^^^^^^^^^^^^^^^^

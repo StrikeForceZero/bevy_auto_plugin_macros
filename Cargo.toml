@@ -22,3 +22,4 @@ thiserror = "2"
 [dev-dependencies]
 bevy = { workspace = true }
 internal_test_util = { path = "crates/internal_test_util" }
+trybuild = "1.0"
