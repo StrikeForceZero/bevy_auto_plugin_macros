@@ -4,6 +4,11 @@ version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 edition = "2021"
 
+[features]
+missing_auto_plugin_is_compile_error = ["proc_macros/missing_auto_plugin_is_compile_error"]
+missing_auto_plugin_is_error = ["proc_macros/missing_auto_plugin_is_error"]
+missing_auto_plugin_is_warning = ["proc_macros/missing_auto_plugin_is_warning"]
+
 [workspace]
 members = ["crates/*"]
 
@@ -14,6 +19,7 @@ proc-macro2 = "1"
 syn = { version = "2", features = ["full"] }
 quote = "1"
 thiserror = "2"
+log = "0.4"
 
 [dependencies]
 proc_macros = { workspace = true }

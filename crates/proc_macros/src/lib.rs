@@ -83,6 +83,33 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
         Err(err) => return err.to_compile_error().into(),
     };
 
+    #[cfg(feature = "missing_auto_plugin_check")]
+    let injected_code = {
+        let mut output = quote! {};
+        let missing_plugin_files = get_files_missing_plugin();
+        if !missing_plugin_files.is_empty() {
+            let messages = missing_plugin_files.into_iter().map(|file_path| format!("missing #[auto_plugin(...)] attribute in file: {file_path}")).collect::<Vec<_>>();
+            #[cfg(feature = "missing_auto_plugin_is_error")]
+            {
+                output.extend(messages.iter().map(|message| quote! {
+                        log::error!(#message);
+                    }));
+            }
+            #[cfg(feature = "missing_auto_plugin_is_warning")]
+            {
+                output.extend(messages.iter().map(|message| quote! {
+                        log::warn!(#message);
+                    }));
+            }
+            #[cfg(feature = "missing_auto_plugin_is_compile_error")]
+            return CompilerStream::from(Error::new(Span::call_site(), messages.join("\n")).to_compile_error());
+        }
+        quote! {
+            #output
+            #injected_code
+        }
+    };
+
     let expanded = quote! {
         #(#func_attrs)*
         #func_vis #func_sig {
@@ -161,6 +188,21 @@ fn update_file_state<R>(file_path: String, update_fn: impl FnOnce(&mut FileState
         let mut map = map.borrow_mut();
         let file_state = map.entry(file_path).or_default();
         update_fn(file_state)
+    })
+}
+
+#[cfg(feature = "missing_auto_plugin_check")]
+fn get_files_missing_plugin() -> Vec<String> {
+    FILE_STATE_MAP.with(|map| {
+        let map = map.borrow();
+        let mut files_missing_plugin = Vec::new();
+        for (file_path, file_state) in map.iter() {
+            if file_state.plugin_registered {
+                continue;
+            }
+            files_missing_plugin.push(file_path.clone());
+        }
+        files_missing_plugin
     })
 }
 
