@@ -1,5 +1,5 @@
 error: expected 1 generic parameters, found 0
- --> tests/ui/invalid_generics.rs:4:22
+ --> tests/ui/stable/invalid_generics.rs:4:22
   |
 4 | #[auto_register_type(Test)]
   |                      ^^^^

@@ -1,0 +1,7 @@
+error: plugin already registered above, move plugin fn to the bottom of the file
+ --> tests/ui/nightly/auto_plugin_already_registered.rs:7:1
+  |
+7 | #[auto_register_type]
+  | ^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `auto_register_type` (in Nightly builds, run with -Z macro-backtrace for more info)

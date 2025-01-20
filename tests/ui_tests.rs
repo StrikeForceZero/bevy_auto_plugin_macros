@@ -1,5 +1,8 @@
 #[test]
 fn ui_tests() {
     let t = trybuild::TestCases::new();
-    t.compile_fail("tests/ui/*.rs"); // Adjust path to match your test files
+    #[cfg(feature = "nightly")]
+    t.compile_fail("tests/ui/nightly/*.rs");
+    #[cfg(feature = "stable")]
+    t.compile_fail("tests/ui/stable/*.rs");
 }

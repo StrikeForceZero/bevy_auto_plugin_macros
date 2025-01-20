@@ -3,6 +3,8 @@ name = "internal_test_util"
 version = "0.0.0"
 edition = "2021"
 
+[lib]
+
 [dependencies]
 bevy_app = { workspace = true }
 bevy_internal = { workspace = true }

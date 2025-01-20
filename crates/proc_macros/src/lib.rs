@@ -1,5 +1,3 @@
-#![feature(proc_macro_span)]
-
 use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
 
@@ -29,6 +27,14 @@ struct FileState {
     register_types: HashSet<String>,
     add_events: HashSet<String>,
     init_resources: HashSet<String>,
+}
+
+fn get_file_path() -> String {
+    #[allow(unused_variables)]
+    let file_path = "".to_string();
+    #[cfg(feature = "nightly")]
+    let file_path = nightly_shared::get_file_path();
+    file_path
 }
 
 #[derive(Default)]
@@ -85,6 +91,7 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
 
     #[cfg(feature = "missing_auto_plugin_check")]
     let injected_code = {
+        #[allow(unused_mut)]
         let mut output = quote! {};
         let missing_plugin_files = get_files_missing_plugin();
         if !missing_plugin_files.is_empty() {
@@ -357,15 +364,6 @@ fn update_state(
         }
         Ok(())
     })
-}
-
-fn get_file_path() -> String {
-    proc_macro2::Span::call_site()
-        .unwrap()
-        .source_file()
-        .path()
-        .display()
-        .to_string()
 }
 
 fn path_to_string(path: &Path, strip_spaces: bool) -> String {

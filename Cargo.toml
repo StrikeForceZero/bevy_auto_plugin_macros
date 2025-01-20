@@ -6,14 +6,17 @@ edition = "2021"
 
 [features]
 default = []
-missing_auto_plugin_is_compile_error = ["proc_macros/missing_auto_plugin_is_compile_error"]
-missing_auto_plugin_is_error = ["proc_macros/missing_auto_plugin_is_error"]
-missing_auto_plugin_is_warning = ["proc_macros/missing_auto_plugin_is_warning"]
+stable = []
+nightly = []
+missing_auto_plugin_is_compile_error = ["nightly", "proc_macros/missing_auto_plugin_is_compile_error"]
+missing_auto_plugin_is_error = ["nightly", "proc_macros/missing_auto_plugin_is_error"]
+missing_auto_plugin_is_warning = ["nightly", "proc_macros/missing_auto_plugin_is_warning"]
 
 [workspace]
 members = ["crates/*"]
 
 [workspace.dependencies]
+nightly_shared = { path = "crates/nightly_shared" }
 proc_macros = { path = "crates/proc_macros" }
 bevy_app = { version = "0.15", default-features = false }
 bevy_reflect = { version = "0.15" }
