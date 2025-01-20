@@ -7,9 +7,18 @@ edition = "2021"
 [lib]
 proc-macro = true
 
+[workspace]
+members = ["crates/*"]
+
+[workspace.dependencies]
+bevy = { version = "0.15" }
+
 [dependencies]
 proc-macro2 = "1"
 syn = { version = "2", features = ["full"] }
 quote = "1"
 thiserror = "2"
 
+[dev-dependencies]
+bevy = { workspace = true }
+internal_test_util = { path = "crates/internal_test_util" }
