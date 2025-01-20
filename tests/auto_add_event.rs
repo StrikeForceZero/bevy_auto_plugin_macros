@@ -6,9 +6,7 @@ use bevy_auto_plugin_macros::*;
 struct Test;
 
 #[auto_plugin(app=app)]
-fn plugin(app: &mut App) {
-
-}
+fn plugin(app: &mut App) {}
 
 fn app() -> App {
     let mut app = internal_test_util::create_minimal_app();

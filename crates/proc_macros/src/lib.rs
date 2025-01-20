@@ -88,21 +88,32 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
         let mut output = quote! {};
         let missing_plugin_files = get_files_missing_plugin();
         if !missing_plugin_files.is_empty() {
-            let messages = missing_plugin_files.into_iter().map(|file_path| format!("missing #[auto_plugin(...)] attribute in file: {file_path}")).collect::<Vec<_>>();
+            let messages = missing_plugin_files
+                .into_iter()
+                .map(|file_path| {
+                    format!("missing #[auto_plugin(...)] attribute in file: {file_path}")
+                })
+                .collect::<Vec<_>>();
             #[cfg(feature = "missing_auto_plugin_is_error")]
             {
-                output.extend(messages.iter().map(|message| quote! {
+                output.extend(messages.iter().map(|message| {
+                    quote! {
                         log::error!(#message);
-                    }));
+                    }
+                }));
             }
             #[cfg(feature = "missing_auto_plugin_is_warning")]
             {
-                output.extend(messages.iter().map(|message| quote! {
+                output.extend(messages.iter().map(|message| {
+                    quote! {
                         log::warn!(#message);
-                    }));
+                    }
+                }));
             }
             #[cfg(feature = "missing_auto_plugin_is_compile_error")]
-            return CompilerStream::from(Error::new(Span::call_site(), messages.join("\n")).to_compile_error());
+            return CompilerStream::from(
+                Error::new(Span::call_site(), messages.join("\n")).to_compile_error(),
+            );
         }
         quote! {
             #output
@@ -396,8 +407,8 @@ fn handle_attribute(attr: CompilerStream, input: CompilerStream, target: Target)
         target,
         args,
     )
-        .map(|_| cloned_input)
-        .unwrap_or_else(|err| err.to_compile_error().into())
+    .map(|_| cloned_input)
+    .unwrap_or_else(|err| err.to_compile_error().into())
 }
 
 fn generate_register_types(
