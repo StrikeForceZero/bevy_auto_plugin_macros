@@ -4,4 +4,5 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-bevy = { workspace = true }
+bevy_app = { workspace = true }
+bevy_internal = { workspace = true }

@@ -1,4 +1,3 @@
-use bevy::prelude::*;
 use bevy_auto_plugin_macros::*;
 
 
@@ -6,7 +5,7 @@ use bevy_auto_plugin_macros::*;
 struct Test<T>(T);
 
 #[auto_plugin(app=_app)]
-fn plugin(_app: &mut App) {}
+fn plugin(_app: &mut bevy_app::App) {}
 
 // dummy main
 fn main() {

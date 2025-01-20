@@ -1,4 +1,6 @@
-use bevy::prelude::*;
+use bevy_app::prelude::*;
+use bevy_ecs::prelude::*;
+use bevy_reflect::prelude::*;
 use bevy_auto_plugin_macros::*;
 use std::any::Any;
 

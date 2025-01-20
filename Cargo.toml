@@ -5,6 +5,7 @@ authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 edition = "2021"
 
 [features]
+default = []
 missing_auto_plugin_is_compile_error = ["proc_macros/missing_auto_plugin_is_compile_error"]
 missing_auto_plugin_is_error = ["proc_macros/missing_auto_plugin_is_error"]
 missing_auto_plugin_is_warning = ["proc_macros/missing_auto_plugin_is_warning"]
@@ -14,7 +15,10 @@ members = ["crates/*"]
 
 [workspace.dependencies]
 proc_macros = { path = "crates/proc_macros" }
-bevy = { version = "0.15" }
+bevy_app = { version = "0.15", default-features = false }
+bevy_reflect = { version = "0.15" }
+bevy_internal = { version = "0.15" }
+bevy_ecs = { version = "0.15" }
 proc-macro2 = "1"
 syn = { version = "2", features = ["full"] }
 quote = "1"
@@ -25,6 +29,8 @@ log = "0.4"
 proc_macros = { workspace = true }
 
 [dev-dependencies]
-bevy = { workspace = true }
+bevy_app = { workspace = true, default-features = false }
+bevy_reflect = { workspace = true }
+bevy_ecs = { workspace = true }
 internal_test_util = { path = "crates/internal_test_util" }
 trybuild = "1.0"
