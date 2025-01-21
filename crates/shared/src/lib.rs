@@ -2,6 +2,7 @@ use proc_macro2::{Ident, TokenStream as MacroStream};
 use quote::quote;
 use std::collections::HashSet;
 use syn::Path;
+use crate::util::path_to_string;
 
 pub mod util;
 
@@ -68,6 +69,27 @@ pub fn generate_init_resources(
         {
             // init_resources
             #(#init_resources)*
+        }
+    })
+}
+
+pub fn generate_auto_names(
+    app_ident: &Ident,
+    items: impl Iterator<Item = String>,
+) -> syn::Result<MacroStream> {
+    let auto_names = items
+        .map(|item| {
+            let item = syn::parse_str::<Path>(&item)?;
+            let name = path_to_string(&item, true);
+            Ok(quote! {
+                #app_ident.register_required_components_with::<#item, Name>(|| Name::new(#name));
+            })
+        })
+        .collect::<syn::Result<Vec<_>>>()?;
+    Ok(quote! {
+        {
+            // auto_names
+            #(#auto_names)*
         }
     })
 }

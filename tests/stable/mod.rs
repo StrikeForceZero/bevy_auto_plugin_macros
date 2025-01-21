@@ -5,3 +5,4 @@ mod auto_init_resource_generic;
 mod auto_plugin_param;
 mod auto_register_type;
 mod auto_register_type_generic;
+mod auto_name;
