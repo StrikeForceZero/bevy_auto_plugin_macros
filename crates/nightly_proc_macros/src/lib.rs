@@ -1,7 +1,9 @@
 use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
 
-use nightly_shared::{files_missing_plugin_ts, get_file_path, update_file_state, update_state};
+#[cfg(feature = "missing_auto_plugin_check")]
+use nightly_shared::files_missing_plugin_ts;
+use nightly_shared::{get_file_path, update_file_state, update_state};
 use proc_macro2::{Ident, Span};
 use quote::quote;
 use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
