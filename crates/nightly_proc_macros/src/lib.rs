@@ -7,7 +7,7 @@ use nightly_shared::{get_file_path, update_file_state, update_state};
 use proc_macro2::{Ident, Span};
 use quote::quote;
 use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
-use shared::{generate_add_events, generate_init_resources, generate_register_types, util};
+use shared::{generate_add_events, generate_auto_names, generate_init_resources, generate_register_types, util};
 use syn::meta::ParseNestedMeta;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
@@ -103,10 +103,13 @@ fn auto_plugin_inner(file_path: String, app_param_name: &Ident) -> Result<MacroS
             generate_add_events(app_param_name, file_state.context.add_events.drain())?;
         let init_resources =
             generate_init_resources(app_param_name, file_state.context.init_resources.drain())?;
+        let auto_names =
+            generate_auto_names(app_param_name, file_state.context.auto_names.drain())?;
         Ok(quote! {
             #register_types
             #add_events
             #init_resources
+            #auto_names
         })
     })
 }
@@ -156,4 +159,8 @@ pub fn auto_add_event(attr: CompilerStream, input: CompilerStream) -> CompilerSt
 #[proc_macro_attribute]
 pub fn auto_init_resource(attr: CompilerStream, input: CompilerStream) -> CompilerStream {
     handle_attribute(attr, input, Target::InitResources)
+}
+#[proc_macro_attribute]
+pub fn auto_name(attr: CompilerStream, input: CompilerStream) -> CompilerStream {
+    handle_attribute(attr, input, Target::RequiredComponentAutoName)
 }

@@ -54,6 +54,7 @@ pub fn update_state(
             Target::RegisterTypes => entry.context.register_types.insert(path),
             Target::AddEvents => entry.context.add_events.insert(path),
             Target::InitResources => entry.context.init_resources.insert(path),
+            Target::RequiredComponentAutoName => entry.context.auto_names.insert(path),
         };
         if !inserted {
             return Err(UpdateStateError::Duplicate);

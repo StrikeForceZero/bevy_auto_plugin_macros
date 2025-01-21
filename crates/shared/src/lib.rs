@@ -11,6 +11,7 @@ pub struct AutoPluginContext {
     pub register_types: HashSet<String>,
     pub add_events: HashSet<String>,
     pub init_resources: HashSet<String>,
+    pub auto_names: HashSet<String>,
 }
 
 pub fn generate_register_types(

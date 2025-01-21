@@ -6,3 +6,4 @@ mod auto_plugin_param;
 mod auto_register_type;
 mod auto_register_type_generic;
 mod ui_tests;
+mod auto_name;
