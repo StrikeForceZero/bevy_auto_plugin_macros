@@ -76,7 +76,7 @@ mod plugin_module {
 ### Known Limitations
 - Causes issues for ide's like RustRover
 
-## Usage - Nightly
+## Usage - [Nightly](https://github.com/StrikeForceZero/bevy_auto_plugin_macros/tree/nightly)
 ```rust
 use bevy::prelude::*;
 use bevy_auto_plugin_macros::*;
