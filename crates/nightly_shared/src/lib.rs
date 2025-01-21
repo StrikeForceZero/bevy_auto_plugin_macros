@@ -1,11 +1,11 @@
 #![feature(proc_macro_span)]
 
+use proc_macro2::Span;
 use quote::quote;
 use shared::util::{path_to_string, Target};
 use shared::AutoPluginContext;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use proc_macro2::Span;
 use syn::Path;
 use thiserror::Error;
 

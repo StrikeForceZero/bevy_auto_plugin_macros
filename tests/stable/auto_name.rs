@@ -1,7 +1,7 @@
 use bevy_app::prelude::*;
 use bevy_auto_plugin_macros::auto_plugin_module::*;
-use bevy_ecs::prelude::*;
 use bevy_core::Name;
+use bevy_ecs::prelude::*;
 
 #[auto_plugin(init_name=init)]
 mod plugin_module {
@@ -23,5 +23,8 @@ fn test_auto_name() {
     let mut app = app();
     let entity = app.world_mut().spawn(Test).id();
     app.update();
-    assert_eq!(app.world().entity(entity).get::<Name>(), Some(&Name::new("Test")));
+    assert_eq!(
+        app.world().entity(entity).get::<Name>(),
+        Some(&Name::new("Test"))
+    );
 }

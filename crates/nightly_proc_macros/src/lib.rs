@@ -7,7 +7,10 @@ use nightly_shared::{get_file_path, update_file_state, update_state};
 use proc_macro2::{Ident, Span};
 use quote::quote;
 use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
-use shared::{generate_add_events, generate_auto_names, generate_init_resources, generate_register_types, util};
+use shared::{
+    generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
+    util,
+};
 use syn::meta::ParseNestedMeta;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
