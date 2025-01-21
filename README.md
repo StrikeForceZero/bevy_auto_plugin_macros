@@ -55,7 +55,7 @@ Which generates this code
 ```rust
 mod plugin_module {
     // ...
-    fn ini(app: &mut App) {
+    fn init(app: &mut App) {
         app.register_type::<FooComponent>();
         app.register_type::<FooComponentWithGeneric<bool>>();
         app.register_type::<FooComponentWithGeneric<u32>>();
@@ -79,7 +79,7 @@ mod plugin_module {
 ## Usage - Nightly
 ```rust
 use bevy::prelude::*;
-use bevy_auto_plugin_macros::*;
+use bevy_auto_plugin_macros::auto_plugin::*;
 
 #[auto_register_type]
 #[derive(Component, Reflect)]
