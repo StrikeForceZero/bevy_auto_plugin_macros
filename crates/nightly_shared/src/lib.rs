@@ -1,12 +1,11 @@
 #![feature(proc_macro_span)]
 
-use proc_macro2::{Span, TokenStream as MacroStream};
-
 use quote::quote;
 use shared::util::{path_to_string, Target};
 use shared::AutoPluginContext;
 use std::cell::RefCell;
 use std::collections::HashMap;
+use proc_macro2::Span;
 use syn::Path;
 use thiserror::Error;
 
@@ -23,7 +22,7 @@ pub struct FileState {
 }
 
 pub fn get_file_path() -> String {
-    proc_macro2::Span::call_site()
+    Span::call_site()
         .unwrap()
         .source_file()
         .path()
