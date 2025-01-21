@@ -1,5 +1,5 @@
 error: plugin already registered above, move plugin fn to the bottom of the file
- --> tests/ui/stable/auto_plugin_already_registered.rs:7:1
+ --> tests/nightly/ui/auto_plugin_already_registered.rs:7:1
   |
 7 | #[auto_register_type]
   | ^^^^^^^^^^^^^^^^^^^^^

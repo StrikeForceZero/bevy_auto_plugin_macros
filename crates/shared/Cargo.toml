@@ -1,0 +1,12 @@
+[package]
+name = "shared"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+
+[dependencies]
+proc-macro2 = { workspace = true }
+syn = { workspace = true }
+quote = { workspace = true }
+thiserror = { workspace = true }
