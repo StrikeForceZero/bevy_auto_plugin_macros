@@ -6,3 +6,4 @@ mod auto_name;
 mod auto_plugin_param;
 mod auto_register_type;
 mod auto_register_type_generic;
+mod auto_name_with_generic;
