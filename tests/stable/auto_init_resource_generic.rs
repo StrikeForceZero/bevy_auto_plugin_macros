@@ -2,7 +2,6 @@ use bevy_app::prelude::*;
 use bevy_auto_plugin_macros::auto_plugin_module::*;
 use bevy_ecs::prelude::*;
 
-
 #[auto_plugin(init_name=init)]
 mod plugin_module {
     use super::*;

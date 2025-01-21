@@ -1,19 +1,16 @@
 use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
 
+use nightly_shared::{files_missing_plugin_ts, get_file_path, update_file_state, update_state};
 use proc_macro2::{Ident, Span};
 use quote::quote;
+use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
+use shared::{generate_add_events, generate_init_resources, generate_register_types, util};
 use syn::meta::ParseNestedMeta;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::Comma;
-use syn::{
-    parse_macro_input, Error, Item, ItemFn, Path,
-    Result, Token,
-};
-use nightly_shared::{files_missing_plugin_ts, get_file_path, update_file_state, update_state};
-use shared::{generate_add_events, generate_init_resources, generate_register_types, util};
-use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
+use syn::{parse_macro_input, Error, Item, ItemFn, Path, Result, Token};
 
 #[derive(Default)]
 struct AutoPluginAttributes {
@@ -96,9 +93,12 @@ fn auto_plugin_inner(file_path: String, app_param_name: &Ident) -> Result<MacroS
             ));
         }
         file_state.plugin_registered = true;
-        let register_types =
-            generate_register_types(app_param_name, file_state.context.register_types.clone().drain())?;
-        let add_events = generate_add_events(app_param_name, file_state.context.add_events.drain())?;
+        let register_types = generate_register_types(
+            app_param_name,
+            file_state.context.register_types.clone().drain(),
+        )?;
+        let add_events =
+            generate_add_events(app_param_name, file_state.context.add_events.drain())?;
         let init_resources =
             generate_init_resources(app_param_name, file_state.context.init_resources.drain())?;
         Ok(quote! {
@@ -139,8 +139,8 @@ fn handle_attribute(attr: CompilerStream, input: CompilerStream, target: Target)
         target,
         args,
     )
-        .map(|_| cloned_input)
-        .unwrap_or_else(|err| err.to_compile_error().into())
+    .map(|_| cloned_input)
+    .unwrap_or_else(|err| err.to_compile_error().into())
 }
 
 #[proc_macro_attribute]

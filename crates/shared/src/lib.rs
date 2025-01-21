@@ -1,7 +1,7 @@
-use std::collections::HashSet;
 use proc_macro2::{Ident, TokenStream as MacroStream};
-use syn::Path;
 use quote::quote;
+use std::collections::HashSet;
+use syn::Path;
 
 pub mod util;
 
@@ -32,7 +32,7 @@ pub fn generate_register_types(
     })
 }
 
-pub  fn generate_add_events(
+pub fn generate_add_events(
     app_ident: &Ident,
     items: impl Iterator<Item = String>,
 ) -> syn::Result<MacroStream> {
@@ -52,7 +52,7 @@ pub  fn generate_add_events(
     })
 }
 
-pub  fn generate_init_resources(
+pub fn generate_init_resources(
     app_ident: &Ident,
     items: impl Iterator<Item = String>,
 ) -> syn::Result<MacroStream> {

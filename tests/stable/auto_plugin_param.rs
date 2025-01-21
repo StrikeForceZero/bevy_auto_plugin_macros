@@ -4,7 +4,6 @@ use bevy_ecs::prelude::*;
 use bevy_reflect::prelude::*;
 use std::any::Any;
 
-
 #[auto_plugin(init_name=init)]
 mod plugin_module {
     use super::*;

@@ -2,13 +2,13 @@
 
 use proc_macro2::{Span, TokenStream as MacroStream};
 
+use quote::quote;
+use shared::util::{path_to_string, Target};
+use shared::AutoPluginContext;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use quote::quote;
 use syn::Path;
 use thiserror::Error;
-use shared::AutoPluginContext;
-use shared::util::{path_to_string, Target};
 
 thread_local! {
     static FILE_STATE_MAP: RefCell<HashMap<String, FileState>> = RefCell::new(HashMap::new());
@@ -31,7 +31,6 @@ pub fn get_file_path() -> String {
         .to_string()
 }
 
-
 pub fn update_file_state<R>(file_path: String, update_fn: impl FnOnce(&mut FileState) -> R) -> R {
     FILE_STATE_MAP.with(|map| {
         let mut map = map.borrow_mut();
@@ -39,8 +38,6 @@ pub fn update_file_state<R>(file_path: String, update_fn: impl FnOnce(&mut FileS
         update_fn(file_state)
     })
 }
-
-
 
 pub fn update_state(
     file_path: String,
@@ -66,7 +63,6 @@ pub fn update_state(
     })
 }
 
-
 fn get_files_missing_plugin() -> Vec<String> {
     FILE_STATE_MAP.with(|map| {
         let map = map.borrow();
@@ -89,24 +85,22 @@ pub fn files_missing_plugin_ts() -> proc_macro2::TokenStream {
         #[allow(unused_variables)]
         let messages = missing_plugin_files
             .into_iter()
-            .map(|file_path| {
-                format!("missing #[auto_plugin(...)] attribute in file: {file_path}")
-            })
+            .map(|file_path| format!("missing #[auto_plugin(...)] attribute in file: {file_path}"))
             .collect::<Vec<_>>();
         #[cfg(feature = "missing_auto_plugin_is_error")]
         {
             output.extend(messages.iter().map(|message| {
                 quote! {
-                        log::error!(#message);
-                    }
+                    log::error!(#message);
+                }
             }));
         }
         #[cfg(feature = "missing_auto_plugin_is_warning")]
         {
             output.extend(messages.iter().map(|message| {
                 quote! {
-                        log::warn!(#message);
-                    }
+                    log::warn!(#message);
+                }
             }));
         }
         #[cfg(feature = "missing_auto_plugin_is_compile_error")]

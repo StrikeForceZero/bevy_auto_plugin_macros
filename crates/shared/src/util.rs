@@ -273,13 +273,17 @@ pub fn items_with_attribute_macro(
 
     let mut matched_items = vec![];
     for item in items {
-        let Ok(matched_item) = StructOrEnumRef::try_from(item) else { 
+        let Ok(matched_item) = StructOrEnumRef::try_from(item) else {
             continue;
         };
         for attr in matched_item.attributes.iter().filter(is_marker) {
             let path = parse(matched_item.ident, attr)?;
             validate_generic_counts(matched_item.generics, &path)?;
-            matched_items.push(ItemWithAttributeMatch { item: item.clone(), path, attributes: attr.clone() });
+            matched_items.push(ItemWithAttributeMatch {
+                item: item.clone(),
+                path,
+                attributes: attr.clone(),
+            });
         }
     }
     Ok(matched_items)
