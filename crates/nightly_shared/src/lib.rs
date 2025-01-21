@@ -5,7 +5,7 @@ use proc_macro2::{Span, TokenStream as MacroStream};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use quote::quote;
-use syn::{Error, Path};
+use syn::Path;
 use thiserror::Error;
 use shared::AutoPluginContext;
 use shared::util::{path_to_string, Target};
@@ -110,9 +110,7 @@ pub fn files_missing_plugin_ts() -> proc_macro2::TokenStream {
             }));
         }
         #[cfg(feature = "missing_auto_plugin_is_compile_error")]
-        return MacroStream::from(
-            Error::new(Span::call_site(), messages.join("\n")).to_compile_error(),
-        );
+        return syn::Error::new(Span::call_site(), messages.join("\n")).to_compile_error();
     }
     output
 }
