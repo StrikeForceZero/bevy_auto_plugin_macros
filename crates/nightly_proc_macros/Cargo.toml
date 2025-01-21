@@ -8,15 +8,14 @@ edition = "2021"
 proc-macro = true
 
 [features]
-nightly = ["nightly_shared"]
-missing_auto_plugin_check = ["nightly"]
+missing_auto_plugin_check = []
 missing_auto_plugin_is_compile_error = ["missing_auto_plugin_check"]
 missing_auto_plugin_is_error = ["missing_auto_plugin_check", "log"]
 missing_auto_plugin_is_warning = ["missing_auto_plugin_check", "log"]
 
 [dependencies]
 shared = { workspace = true }
-nightly_shared = { workspace = true, optional = true }
+nightly_shared = { workspace = true }
 proc-macro2 = { workspace = true }
 syn = { workspace = true }
 quote = { workspace = true }
