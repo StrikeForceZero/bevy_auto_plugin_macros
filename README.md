@@ -14,6 +14,7 @@ mod plugin_module {
     #[auto_register_type]
     #[derive(Component, Reflect)]
     #[reflect(Component)]
+    #[auto_name]
     pub struct FooComponent;
 
     #[auto_register_type(FooComponentWithGeneric<bool>)]
@@ -69,6 +70,8 @@ mod plugin_module {
 
         app.init_resource::<FooResource>();
         app.init_resource::<FooResourceWithGeneric<bool>>();
+
+        app.register_required_components_with::<FooComponent, Name>(|| Name::new("FooComponent"));
     }
 }
 ```

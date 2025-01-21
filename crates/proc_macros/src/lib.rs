@@ -4,7 +4,9 @@ use proc_macro2::TokenStream as MacroStream;
 use proc_macro2::{Ident, Span};
 use quote::quote;
 use shared::util::{inject_module, items_with_attribute_macro, ItemWithAttributeMatch};
-use shared::{generate_add_events, generate_init_resources, generate_register_types};
+use shared::{
+    generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
+};
 use syn::meta::ParseNestedMeta;
 use syn::{parse2, parse_macro_input, Item, ItemMod, Result};
 
@@ -68,17 +70,22 @@ fn auto_plugin_inner(mut module: ItemMod, init_name: &Ident) -> Result<MacroStre
         let auto_init_resources = items_with_attribute_macro(items, "auto_init_resource")?;
         let auto_init_resources = map_to_string(auto_init_resources);
 
+        let auto_names = items_with_attribute_macro(items, "auto_name")?;
+        let auto_names = map_to_string(auto_names);
+
         inject_module(&mut module, move || {
             let auto_register_types =
                 generate_register_types(&app_param_ident, auto_register_types)?;
             let auto_add_events = generate_add_events(&app_param_ident, auto_add_events)?;
             let auto_init_resources =
                 generate_init_resources(&app_param_ident, auto_init_resources)?;
+            let auto_names = generate_auto_names(&app_param_ident, auto_names)?;
             parse2::<Item>(quote! {
                 pub(super) fn #init_name(app: &mut bevy_app::prelude::App) {
                     #auto_register_types
                     #auto_add_events
                     #auto_init_resources
+                    #auto_names
                 }
             })
         })?;
@@ -103,6 +110,12 @@ pub fn auto_add_event(_args: CompilerStream, input: CompilerStream) -> CompilerS
 }
 #[proc_macro_attribute]
 pub fn auto_init_resource(_args: CompilerStream, input: CompilerStream) -> CompilerStream {
+    // Just return the input unchanged; this acts as a marker.
+    input
+}
+
+#[proc_macro_attribute]
+pub fn auto_name(_attr: CompilerStream, input: CompilerStream) -> CompilerStream {
     // Just return the input unchanged; this acts as a marker.
     input
 }
