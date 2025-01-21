@@ -3,7 +3,7 @@
 use proc_macro2::{Span, TokenStream as MacroStream};
 
 use std::cell::RefCell;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use quote::quote;
 use syn::{Error, Path};
 use thiserror::Error;
