@@ -38,4 +38,4 @@ jobs:
             - name: Run tests
               run: |
                   echo "Testing with ${{ matrix.toolchain }} and features: ${{ matrix.toolchain }},${{ matrix.feature-set }}"
-                  cargo test --features "${{ matrix.toolchain }},${{ matrix.feature-set }}"
+                  cargo test --features "${{ matrix.feature-set }}"
