@@ -1,8 +1,8 @@
+use crate::util::path_to_string;
 use proc_macro2::{Ident, TokenStream as MacroStream};
 use quote::quote;
 use std::collections::HashSet;
 use syn::Path;
-use crate::util::path_to_string;
 
 pub mod util;
 
