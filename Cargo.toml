@@ -6,6 +6,7 @@ edition = "2021"
 
 [features]
 default = []
+log_plugin_build = ["nightly_proc_macros/log_plugin_build"]
 missing_auto_plugin_is_compile_error = ["nightly_proc_macros/missing_auto_plugin_is_compile_error"]
 missing_auto_plugin_is_error = ["nightly_proc_macros/missing_auto_plugin_is_error"]
 missing_auto_plugin_is_warning = ["nightly_proc_macros/missing_auto_plugin_is_warning"]

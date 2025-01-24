@@ -77,6 +77,18 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
             #injected_code
         }
     };
+    
+    #[cfg(feature = "log_plugin_build")]
+    let injected_code = quote! {
+        log::debug!("plugin START");
+        #injected_code
+    };
+
+    #[cfg(feature = "log_plugin_build")]
+    let func_body = quote! {
+        #func_body
+        log::debug!("plugin END");
+    };
 
     let expanded = quote! {
         #(#func_attrs)*
