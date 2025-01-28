@@ -74,6 +74,11 @@ jobs:
                   profile: minimal
                   toolchain: nightly
                   override: true
+
+            - name: Install rustfmt
+              run: |
+                  echo "Installing rustfmt for nightly"
+                  rustup component add rustfmt --toolchain nightly
     
             - name: Run rustfmt
               run: |
