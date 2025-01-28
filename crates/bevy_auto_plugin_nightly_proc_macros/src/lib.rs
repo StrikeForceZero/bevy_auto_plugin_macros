@@ -9,13 +9,15 @@ use bevy_auto_plugin_nightly_shared::{
     update_state as nightly_update_state,
 };
 use bevy_auto_plugin_nightly_shared::{FileState, UpdateStateError};
-use proc_macro2::{Ident, Span};
-use quote::quote;
-use bevy_auto_plugin_shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
+use bevy_auto_plugin_shared::util::{
+    resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target,
+};
 use bevy_auto_plugin_shared::{
     generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
     util,
 };
+use proc_macro2::{Ident, Span};
+use quote::quote;
 use syn::meta::ParseNestedMeta;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;

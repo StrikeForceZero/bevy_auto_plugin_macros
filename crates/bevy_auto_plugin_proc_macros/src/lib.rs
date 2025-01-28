@@ -1,12 +1,14 @@
 use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
 
-use proc_macro2::{Ident, Span};
-use quote::quote;
-use bevy_auto_plugin_shared::util::{inject_module, items_with_attribute_macro, ItemWithAttributeMatch};
+use bevy_auto_plugin_shared::util::{
+    inject_module, items_with_attribute_macro, ItemWithAttributeMatch,
+};
 use bevy_auto_plugin_shared::{
     generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
 };
+use proc_macro2::{Ident, Span};
+use quote::quote;
 use syn::meta::ParseNestedMeta;
 use syn::{parse2, parse_macro_input, Item, ItemMod, Result};
 
