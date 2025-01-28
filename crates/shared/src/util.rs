@@ -185,7 +185,7 @@ pub fn get_all_items_in_module_by_attribute(
     };
 
     // Find all items with the provided [`attribute_name`] #[...] attribute
-    let matched_items = items_with_attribute_macro(&items, attribute_name)?;
+    let matched_items = items_with_attribute_macro(items, attribute_name)?;
     Ok(matched_items)
 }
 
