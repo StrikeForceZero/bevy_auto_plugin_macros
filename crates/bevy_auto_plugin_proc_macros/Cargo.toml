@@ -2,6 +2,8 @@
 name = "bevy_auto_plugin_proc_macros"
 version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
+repository = "https://github.com/StrikeForceZero/bevy_auto_plugin/crates/bevy_auto_plugin_proc_macros"
+license = "MIT OR Apache-2.0"
 description = "proc macros for bevy_auto_plugin"
 edition = "2021"
 publish = true
