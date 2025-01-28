@@ -133,7 +133,7 @@ fn auto_plugin_inner(mut module: ItemMod, init_name: &Ident) -> Result<MacroStre
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
 ///     use super::*;
-/// 
+///
 ///     #[auto_register_type]
 ///     #[derive(Component, Reflect)]
 ///     #[reflect(Component)]
@@ -158,7 +158,7 @@ fn auto_plugin_inner(mut module: ItemMod, init_name: &Ident) -> Result<MacroStre
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
 ///     use super::*;
-/// 
+///
 ///     #[auto_register_type(FooComponentWithGeneric<bool>)]
 ///     #[auto_register_type(FooComponentWithGeneric<u32>)]
 ///     #[derive(Component, Reflect)]
@@ -191,7 +191,7 @@ pub fn auto_register_type(_args: CompilerStream, input: CompilerStream) -> Compi
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
 ///     use super::*;
-/// 
+///
 ///     #[auto_add_event]
 ///     #[derive(Event, Reflect)]
 ///     struct FooEvent;
@@ -219,10 +219,10 @@ pub fn auto_register_type(_args: CompilerStream, input: CompilerStream) -> Compi
 ///     #[auto_add_event(FooEventWithGeneric<bool>)]
 ///     #[derive(Event, Reflect)]
 ///     struct FooEventWithGeneric<T>(T);
-/// 
+///
 ///     // code gen:
-///     pub(super) fn init(app: &mut App) { 
-///         app.add_event::<FooEventWithGeneric<bool>>(); 
+///     pub(super) fn init(app: &mut App) {
+///         app.add_event::<FooEventWithGeneric<bool>>();
 ///     }
 /// }
 ///
@@ -245,7 +245,7 @@ pub fn auto_add_event(_args: CompilerStream, input: CompilerStream) -> CompilerS
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
 ///     use super::*;
-/// 
+///
 ///     #[auto_init_resource]
 ///     #[derive(Resource, Default, Reflect)]
 ///     #[reflect(Resource)]
@@ -308,7 +308,7 @@ pub fn auto_init_resource(_args: CompilerStream, input: CompilerStream) -> Compi
 ///
 ///     // code gen:
 ///     pub(super) fn init(app: &mut App) {
-///         app.register_type::<FooComponent>(); 
+///         app.register_type::<FooComponent>();
 ///         app.register_required_components_with::<FooComponent, Name>(|| Name::new("FooComponent"));
 ///     }
 /// }
@@ -326,14 +326,14 @@ pub fn auto_init_resource(_args: CompilerStream, input: CompilerStream) -> Compi
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
 ///     use super::*;
-/// 
+///
 ///     #[auto_register_type(FooComponentWithGeneric<bool>)]
 ///     #[auto_register_type(FooComponentWithGeneric<u32>)]
 ///     #[derive(Component, Reflect)]
 ///     #[reflect(Component)]
 ///     #[auto_name(FooComponentWithGeneric<bool>)]
 ///     struct FooComponentWithGeneric<T>(T);
-/// 
+///
 ///     // code gen:
 ///     pub(super) fn init(app: &mut App) {  
 ///         app.register_type::<FooComponentWithGeneric<bool>>();
