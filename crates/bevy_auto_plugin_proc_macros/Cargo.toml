@@ -1,5 +1,5 @@
 [package]
-name = "proc_macros"
+name = "bevy_auto_plugin_proc_macros"
 version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 edition = "2021"
@@ -9,7 +9,7 @@ publish = false
 proc-macro = true
 
 [dependencies]
-shared = { workspace = true }
+bevy_auto_plugin_shared = { workspace = true }
 proc-macro2 = { workspace = true }
 syn = { workspace = true }
 quote = { workspace = true }

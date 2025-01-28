@@ -1,5 +1,5 @@
 #[cfg(feature = "nightly_proc_macro_span")]
 #[doc(inline)]
-pub use nightly_proc_macros as auto_plugin;
+pub use bevy_auto_plugin_nightly_proc_macros as auto_plugin;
 #[doc(inline)]
-pub use proc_macros as auto_plugin_module;
+pub use bevy_auto_plugin_proc_macros as auto_plugin_module;

@@ -1,4 +1,4 @@
-# Bevy Auto Plugin Macros
+# Bevy Auto Plugin
 
 This crate is designed to reduce the boilerplate required when creating Bevy plugins. Typically, you need to manually register types, initialize resources, and add events. With these macros, you can streamline the process by simply adding the usual derives and attribute macros to your items. As long as you invoke your plugin’s build function, the manual steps are handled automatically.
 
@@ -7,7 +7,7 @@ While there are ongoing discussions about auto-registering types by default in B
 ## Usage - Stable
 ```rust
 use bevy::prelude::*;
-use bevy_auto_plugin_macros::auto_plugin_module::*;
+use bevy_auto_plugin::auto_plugin_module::*;
 
 #[auto_plugin(init_name=init)]
 mod plugin_module {
@@ -82,10 +82,10 @@ mod plugin_module {
 - Causes issues for ide's like RustRover
 
 ## Usage - Nightly
-`--features=bevy_auto_plugin_macros/nightly` or `bevy_auto_plugin_macros = { features=["nightly"] }`
+`--features=bevy_auto_plugin/nightly` or `bevy_auto_plugin = { features=["nightly"] }`
 ```rust
 use bevy::prelude::*;
-use bevy_auto_plugin_macros::auto_plugin::*;
+use bevy_auto_plugin::auto_plugin::*;
 
 #[auto_register_type]
 #[derive(Component, Reflect)]
@@ -154,7 +154,7 @@ fn plugin(app: &mut App) {
 - All items need to be in the same module. This won't work:
 ```rust
 use bevy::prelude::*;
-use bevy_auto_plugin_macros::*;
+use bevy_auto_plugin::*;
 mod foo {
     use super::*;
     #[auto_register_type]

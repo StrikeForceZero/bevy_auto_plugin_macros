@@ -3,8 +3,8 @@ use proc_macro2::TokenStream as MacroStream;
 
 use proc_macro2::{Ident, Span};
 use quote::quote;
-use shared::util::{inject_module, items_with_attribute_macro, ItemWithAttributeMatch};
-use shared::{
+use bevy_auto_plugin_shared::util::{inject_module, items_with_attribute_macro, ItemWithAttributeMatch};
+use bevy_auto_plugin_shared::{
     generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
 };
 use syn::meta::ParseNestedMeta;
@@ -37,7 +37,7 @@ impl AutoPluginAttributes {
 /// # Example
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin_module::*;
+/// use bevy_auto_plugin::auto_plugin_module::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -128,7 +128,7 @@ fn auto_plugin_inner(mut module: ItemMod, init_name: &Ident) -> Result<MacroStre
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin_module::*;
+/// use bevy_auto_plugin::auto_plugin_module::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -153,7 +153,7 @@ fn auto_plugin_inner(mut module: ItemMod, init_name: &Ident) -> Result<MacroStre
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -186,7 +186,7 @@ pub fn auto_register_type(_args: CompilerStream, input: CompilerStream) -> Compi
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -210,7 +210,7 @@ pub fn auto_register_type(_args: CompilerStream, input: CompilerStream) -> Compi
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -240,7 +240,7 @@ pub fn auto_add_event(_args: CompilerStream, input: CompilerStream) -> CompilerS
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -264,7 +264,7 @@ pub fn auto_add_event(_args: CompilerStream, input: CompilerStream) -> CompilerS
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -294,7 +294,7 @@ pub fn auto_init_resource(_args: CompilerStream, input: CompilerStream) -> Compi
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {
@@ -321,7 +321,7 @@ pub fn auto_init_resource(_args: CompilerStream, input: CompilerStream) -> Compi
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_plugin(init_name=init)]
 /// pub mod my_plugin {

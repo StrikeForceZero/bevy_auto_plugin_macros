@@ -1,4 +1,4 @@
-use bevy_auto_plugin_macros::auto_plugin::*;
+use bevy_auto_plugin::auto_plugin::*;
 
 #[auto_plugin(app=_app)]
 fn plugin(_app: &bevy_app::App) {}

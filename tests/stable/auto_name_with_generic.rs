@@ -1,5 +1,5 @@
 use bevy_app::prelude::*;
-use bevy_auto_plugin_macros::auto_plugin_module::*;
+use bevy_auto_plugin::auto_plugin_module::*;
 use bevy_core::Name;
 use bevy_ecs::prelude::*;
 

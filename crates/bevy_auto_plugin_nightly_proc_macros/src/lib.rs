@@ -2,17 +2,17 @@ use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
 
 #[cfg(feature = "missing_auto_plugin_check")]
-use nightly_shared::files_missing_plugin_ts;
+use bevy_auto_plugin_nightly_shared::files_missing_plugin_ts;
 #[cfg(feature = "nightly_proc_macro_span")]
-use nightly_shared::{
+use bevy_auto_plugin_nightly_shared::{
     get_file_path as nightly_get_file_path, update_file_state as nightly_update_file_state,
     update_state as nightly_update_state,
 };
-use nightly_shared::{FileState, UpdateStateError};
+use bevy_auto_plugin_nightly_shared::{FileState, UpdateStateError};
 use proc_macro2::{Ident, Span};
 use quote::quote;
-use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
-use shared::{
+use bevy_auto_plugin_shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
+use bevy_auto_plugin_shared::{
     generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
     util,
 };
@@ -68,7 +68,7 @@ impl AutoPluginAttributes {
 /// # Example
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// // Example attributes or declarations for components, events, or resources
 /// // #[auto_register_type]
@@ -220,7 +220,7 @@ fn handle_attribute(attr: CompilerStream, input: CompilerStream, target: Target)
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_register_type]
 /// #[derive(Component, Reflect)]
@@ -237,7 +237,7 @@ fn handle_attribute(attr: CompilerStream, input: CompilerStream, target: Target)
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_register_type(FooComponentWithGeneric<bool>)]
 /// #[auto_register_type(FooComponentWithGeneric<u32>)]
@@ -261,7 +261,7 @@ pub fn auto_register_type(attr: CompilerStream, input: CompilerStream) -> Compil
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_add_event]
 /// #[derive(Event, Reflect)]
@@ -276,7 +276,7 @@ pub fn auto_register_type(attr: CompilerStream, input: CompilerStream) -> Compil
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_add_event(FooEventWithGeneric<bool>)]
 /// #[derive(Event, Reflect)]
@@ -296,7 +296,7 @@ pub fn auto_add_event(attr: CompilerStream, input: CompilerStream) -> CompilerSt
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_init_resource]
 /// #[derive(Resource, Default, Reflect)]
@@ -311,7 +311,7 @@ pub fn auto_add_event(attr: CompilerStream, input: CompilerStream) -> CompilerSt
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_init_resource(FooResourceWithGeneric<bool>)]
 /// #[derive(Resource, Default, Reflect)]
@@ -331,7 +331,7 @@ pub fn auto_init_resource(attr: CompilerStream, input: CompilerStream) -> Compil
 /// # Example (without generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_register_type]
 /// #[derive(Component, Reflect)]
@@ -350,7 +350,7 @@ pub fn auto_init_resource(attr: CompilerStream, input: CompilerStream) -> Compil
 /// # Example (with generics)
 /// ```no_run
 /// use bevy::prelude::*;
-/// use bevy_auto_plugin_macros::auto_plugin::*;
+/// use bevy_auto_plugin::auto_plugin::*;
 ///
 /// #[auto_register_type(FooComponentWithGeneric<bool>)]
 /// #[auto_register_type(FooComponentWithGeneric<u32>)]
