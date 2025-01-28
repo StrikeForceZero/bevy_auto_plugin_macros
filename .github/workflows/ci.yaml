@@ -98,6 +98,11 @@ jobs:
                   toolchain: nightly
                   override: true
 
+            - name: Install clippy
+              run: |
+                  echo "Installing clippy for nightly"
+                  rustup component add clippy --toolchain nightly
+
             - name: Run clippy
               run: |
                   echo "Running clippy for lint checks (nightly)"
