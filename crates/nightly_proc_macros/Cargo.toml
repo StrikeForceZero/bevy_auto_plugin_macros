@@ -1,0 +1,22 @@
+[package]
+name = "nightly_proc_macros"
+version = "0.0.0"
+authors = ["Brett Striker <strikeforcezero@gmail.com>"]
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[features]
+missing_auto_plugin_check = []
+missing_auto_plugin_is_compile_error = ["missing_auto_plugin_check"]
+missing_auto_plugin_is_error = ["missing_auto_plugin_check", "log"]
+missing_auto_plugin_is_warning = ["missing_auto_plugin_check", "log"]
+
+[dependencies]
+shared = { workspace = true }
+nightly_shared = { workspace = true }
+proc-macro2 = { workspace = true }
+syn = { workspace = true }
+quote = { workspace = true }
+log = { workspace = true, optional = true }
