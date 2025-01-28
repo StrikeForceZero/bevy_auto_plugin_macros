@@ -49,6 +49,7 @@ bevy_reflect = { workspace = true }
 bevy_ecs = { workspace = true }
 internal_test_util = { path = "crates/internal_test_util" }
 trybuild = "1.0"
+log = { workspace = true }
 
 [package.metadata.docs.rs]
 toolchain = "nightly" # Use nightly for docs.rs
