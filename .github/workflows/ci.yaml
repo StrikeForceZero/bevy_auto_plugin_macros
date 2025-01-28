@@ -19,7 +19,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                toolchain: [nightly]
+                toolchain: [stable, nightly]
                 feature-set: [default, missing_auto_plugin_is_compile_error]
         steps:
             # Checkout the repository
@@ -36,6 +36,7 @@ jobs:
             
             # Run tests with the specified feature set
             - name: Run tests
+              if: ${{ matrix.toolchain == 'nightly' || matrix.feature-set == 'default' }}
               run: |
                   echo "Testing with ${{ matrix.toolchain }} and features: ${{ matrix.toolchain }},${{ matrix.feature-set }}"
-                  cargo test --features "${{ matrix.feature-set }}"
+                  cargo test --features "${{ matrix.toolchain }},${{ matrix.feature-set }}"
