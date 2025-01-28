@@ -80,6 +80,7 @@ mod plugin_module {
 - Causes issues for ide's like RustRover
 
 ## Usage - Nightly
+`--features=bevy_auto_plugin_macros/nightly` or `bevy_auto_plugin_macros = { features=["nightly"] }`
 ```rust
 use bevy::prelude::*;
 use bevy_auto_plugin_macros::auto_plugin::*;
@@ -87,6 +88,7 @@ use bevy_auto_plugin_macros::auto_plugin::*;
 #[auto_register_type]
 #[derive(Component, Reflect)]
 #[reflect(Component)]
+#[auto_name]
 struct FooComponent;
 
 #[auto_register_type(FooComponentWithGeneric<bool>)]
@@ -138,7 +140,8 @@ fn plugin(app: &mut App) {
     
     app.init_resource::<FooResource>();
     app.init_resource::<FooResourceWithGeneric<bool>>();
-    
+
+    app.register_required_components_with::<FooComponent, Name>(|| Name::new("FooComponent"));
     // ...
 }
 ```
