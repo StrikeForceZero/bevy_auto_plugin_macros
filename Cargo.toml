@@ -1,6 +1,6 @@
 [package]
 name = "bevy_auto_plugin"
-version = "0.0.0"
+version = "0.1.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 repository = "https://github.com/StrikeForceZero/bevy_auto_plugin"
 license = "MIT OR Apache-2.0"
@@ -25,9 +25,9 @@ missing_auto_plugin_is_warning = ["bevy_auto_plugin_nightly_proc_macros/missing_
 members = ["crates/*"]
 
 [workspace.dependencies]
-bevy_auto_plugin_shared = { path = "crates/bevy_auto_plugin_shared" }
-bevy_auto_plugin_nightly_shared = { path = "crates/bevy_auto_plugin_nightly_shared" }
-bevy_auto_plugin_proc_macros = { path = "crates/bevy_auto_plugin_proc_macros" }
+bevy_auto_plugin_shared = { version = "0.1.0", path = "crates/bevy_auto_plugin_shared" }
+bevy_auto_plugin_nightly_shared = { version = "0.1.0", path = "crates/bevy_auto_plugin_nightly_shared" }
+bevy_auto_plugin_proc_macros = { version = "0.1.0", path = "crates/bevy_auto_plugin_proc_macros" }
 bevy_app = { version = "0.15", default-features = false }
 bevy_core = { version = "0.15" }
 bevy_reflect = { version = "0.15" }
@@ -41,7 +41,7 @@ log = "0.4"
 
 [dependencies]
 bevy_auto_plugin_proc_macros = { workspace = true }
-bevy_auto_plugin_nightly_proc_macros = { path = "crates/bevy_auto_plugin_nightly_proc_macros", optional = true }
+bevy_auto_plugin_nightly_proc_macros = { version = "0.1.0", path = "crates/bevy_auto_plugin_nightly_proc_macros", optional = true }
 
 [dev-dependencies]
 bevy_app = { workspace = true, default-features = false }
