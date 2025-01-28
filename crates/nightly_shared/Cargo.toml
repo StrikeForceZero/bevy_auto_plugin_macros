@@ -7,6 +7,7 @@ edition = "2021"
 [lib]
 
 [features]
+nightly_proc_macro_span = []
 missing_auto_plugin_check = []
 missing_auto_plugin_is_compile_error = ["missing_auto_plugin_check"]
 missing_auto_plugin_is_error = ["missing_auto_plugin_check", "log"]

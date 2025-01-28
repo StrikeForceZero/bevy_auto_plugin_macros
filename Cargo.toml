@@ -6,11 +6,16 @@ edition = "2021"
 
 [features]
 default = []
+# unused (CI)
 stable = []
-nightly = ["nightly_proc_macros"]
-missing_auto_plugin_is_compile_error = ["nightly", "nightly_proc_macros/missing_auto_plugin_is_compile_error"]
-missing_auto_plugin_is_error = ["nightly", "nightly_proc_macros/missing_auto_plugin_is_error"]
-missing_auto_plugin_is_warning = ["nightly", "nightly_proc_macros/missing_auto_plugin_is_warning"]
+# nightly - optional
+nightly = ["nightly_proc_macro_span"]
+nightly_proc_macro_span = ["nightly_proc_macros/nightly_proc_macro_span"]
+# nightly - optional extras
+log_plugin_build = ["nightly_proc_macros/log_plugin_build"]
+missing_auto_plugin_is_compile_error = ["nightly_proc_macros/missing_auto_plugin_is_compile_error"]
+missing_auto_plugin_is_error = ["nightly_proc_macros/missing_auto_plugin_is_error"]
+missing_auto_plugin_is_warning = ["nightly_proc_macros/missing_auto_plugin_is_warning"]
 
 [workspace]
 members = ["crates/*"]
@@ -19,7 +24,6 @@ members = ["crates/*"]
 shared = { path = "crates/shared" }
 nightly_shared = { path = "crates/nightly_shared" }
 proc_macros = { path = "crates/proc_macros" }
-nightly_proc_macros = { path = "crates/nightly_proc_macros" }
 bevy_app = { version = "0.15", default-features = false }
 bevy_core = { version = "0.15" }
 bevy_reflect = { version = "0.15" }
@@ -33,7 +37,7 @@ log = "0.4"
 
 [dependencies]
 proc_macros = { workspace = true }
-nightly_proc_macros = { workspace = true, optional = true }
+nightly_proc_macros = { path = "crates/nightly_proc_macros", optional = true }
 
 [dev-dependencies]
 bevy_app = { workspace = true, default-features = false }

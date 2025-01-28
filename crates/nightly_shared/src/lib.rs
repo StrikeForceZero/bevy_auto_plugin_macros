@@ -1,11 +1,10 @@
-#![feature(proc_macro_span)]
-
+#![cfg_attr(feature = "nightly_proc_macro_span", feature(proc_macro_span))]
+use proc_macro2::Span;
 use quote::quote;
 use shared::util::{path_to_string, Target};
 use shared::AutoPluginContext;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use proc_macro2::Span;
 use syn::Path;
 use thiserror::Error;
 
@@ -22,12 +21,19 @@ pub struct FileState {
 }
 
 pub fn get_file_path() -> String {
-    Span::call_site()
+    #[cfg(feature = "nightly_proc_macro_span")]
+    let file_path = Span::call_site()
         .unwrap()
         .source_file()
         .path()
         .display()
-        .to_string()
+        .to_string();
+
+    #[cfg(not(feature = "nightly_proc_macro_span"))]
+    let file_path = {
+        panic!("proc_macro_span feature is required for this crate");
+    };
+    file_path
 }
 
 pub fn update_file_state<R>(file_path: String, update_fn: impl FnOnce(&mut FileState) -> R) -> R {
@@ -54,6 +60,7 @@ pub fn update_state(
             Target::RegisterTypes => entry.context.register_types.insert(path),
             Target::AddEvents => entry.context.add_events.insert(path),
             Target::InitResources => entry.context.init_resources.insert(path),
+            Target::RequiredComponentAutoName => entry.context.auto_names.insert(path),
         };
         if !inserted {
             return Err(UpdateStateError::Duplicate);

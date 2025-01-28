@@ -55,6 +55,7 @@ pub enum Target {
     RegisterTypes,
     AddEvents,
     InitResources,
+    RequiredComponentAutoName,
 }
 
 pub struct StructOrEnumRef<'a> {

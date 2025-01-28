@@ -1,4 +1,4 @@
-use bevy_auto_plugin_macros::*;
+use bevy_auto_plugin_macros::auto_plugin::*;
 
 
 #[auto_register_type(Test)]

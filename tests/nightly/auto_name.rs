@@ -1,10 +1,11 @@
 use bevy_app::prelude::*;
 use bevy_auto_plugin_macros::auto_plugin::*;
+use bevy_core::Name;
 use bevy_ecs::prelude::*;
 
-#[auto_add_event]
-#[derive(Event)]
-struct Test;
+#[derive(Component)]
+#[auto_name]
+pub struct Test;
 
 #[auto_plugin(app=app)]
 fn plugin(app: &mut App) {}
@@ -16,9 +17,12 @@ fn app() -> App {
 }
 
 #[test]
-fn test_auto_add_event() {
+fn test_auto_name() {
     let mut app = app();
-    let mut events = app.world_mut().resource_mut::<Events<Test>>();
-    events.send(Test);
-    assert_eq!(events.drain().count(), 1, "did not auto add event");
+    let entity = app.world_mut().spawn(Test).id();
+    app.update();
+    assert_eq!(
+        app.world().entity(entity).get::<Name>(),
+        Some(&Name::new("Test"))
+    );
 }

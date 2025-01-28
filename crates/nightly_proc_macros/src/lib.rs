@@ -3,16 +3,49 @@ use proc_macro2::TokenStream as MacroStream;
 
 #[cfg(feature = "missing_auto_plugin_check")]
 use nightly_shared::files_missing_plugin_ts;
-use nightly_shared::{get_file_path, update_file_state, update_state};
+#[cfg(feature = "nightly_proc_macro_span")]
+use nightly_shared::{
+    get_file_path as nightly_get_file_path, update_file_state as nightly_update_file_state,
+    update_state as nightly_update_state,
+};
+use nightly_shared::{FileState, UpdateStateError};
 use proc_macro2::{Ident, Span};
 use quote::quote;
 use shared::util::{resolve_path_from_item_or_args, FnParamMutabilityCheckErrMessages, Target};
-use shared::{generate_add_events, generate_init_resources, generate_register_types, util};
+use shared::{
+    generate_add_events, generate_auto_names, generate_init_resources, generate_register_types,
+    util,
+};
 use syn::meta::ParseNestedMeta;
 use syn::punctuated::Punctuated;
 use syn::spanned::Spanned;
 use syn::token::Comma;
 use syn::{parse_macro_input, Error, Item, ItemFn, Path, Result, Token};
+
+fn update_file_state<R>(file_path: String, update_fn: impl FnOnce(&mut FileState) -> R) -> R {
+    #[cfg(not(feature = "nightly_proc_macro_span"))]
+    panic!("proc_macro_span feature is required for this crate");
+    #[cfg(feature = "nightly_proc_macro_span")]
+    nightly_update_file_state(file_path, update_fn)
+}
+
+fn update_state(
+    file_path: String,
+    path: Path,
+    target: Target,
+) -> std::result::Result<(), UpdateStateError> {
+    #[cfg(not(feature = "nightly_proc_macro_span"))]
+    panic!("proc_macro_span feature is required for this crate");
+    #[cfg(feature = "nightly_proc_macro_span")]
+    nightly_update_state(file_path, path, target)
+}
+
+fn get_file_path() -> String {
+    #[cfg(not(feature = "nightly_proc_macro_span"))]
+    panic!("proc_macro_span feature is required for this crate");
+    #[cfg(feature = "nightly_proc_macro_span")]
+    nightly_get_file_path()
+}
 
 #[derive(Default)]
 struct AutoPluginAttributes {
@@ -75,6 +108,18 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
         }
     };
 
+    #[cfg(feature = "log_plugin_build")]
+    let injected_code = quote! {
+        log::debug!("plugin START");
+        #injected_code
+    };
+
+    #[cfg(feature = "log_plugin_build")]
+    let func_body = quote! {
+        #func_body
+        log::debug!("plugin END");
+    };
+
     let expanded = quote! {
         #(#func_attrs)*
         #func_vis #func_sig {
@@ -103,10 +148,13 @@ fn auto_plugin_inner(file_path: String, app_param_name: &Ident) -> Result<MacroS
             generate_add_events(app_param_name, file_state.context.add_events.drain())?;
         let init_resources =
             generate_init_resources(app_param_name, file_state.context.init_resources.drain())?;
+        let auto_names =
+            generate_auto_names(app_param_name, file_state.context.auto_names.drain())?;
         Ok(quote! {
             #register_types
             #add_events
             #init_resources
+            #auto_names
         })
     })
 }
@@ -156,4 +204,8 @@ pub fn auto_add_event(attr: CompilerStream, input: CompilerStream) -> CompilerSt
 #[proc_macro_attribute]
 pub fn auto_init_resource(attr: CompilerStream, input: CompilerStream) -> CompilerStream {
     handle_attribute(attr, input, Target::InitResources)
+}
+#[proc_macro_attribute]
+pub fn auto_name(attr: CompilerStream, input: CompilerStream) -> CompilerStream {
+    handle_attribute(attr, input, Target::RequiredComponentAutoName)
 }
