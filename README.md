@@ -1,5 +1,11 @@
 # Bevy Auto Plugin
 
+[![License](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](https://github.com/StrikeForceZero/bevy_auto_plugin#license)
+[![Crates.io](https://img.shields.io/crates/v/bevy_auto_plugin.svg)](https://crates.io/crates/bevy_auto_plugin)
+[![Downloads](https://img.shields.io/crates/d/bevy_auto_plugin.svg)](https://crates.io/crates/bevy_auto_plugin)
+[![Docs](https://docs.rs/bevy_auto_plugin/badge.svg)](https://docs.rs/bevy_auto_plugin/latest/bevy_auto_plugin/)
+[![CI](https://github.com/StrikeForceZero/bevy_auto_plugin/workflows/CI/badge.svg)](https://github.com/StrikeForceZero/bevy_auto_plugin/actions)
+
 This crate is designed to reduce the boilerplate required when creating Bevy plugins. Typically, you need to manually register types, initialize resources, and add events. With these macros, you can streamline the process by simply adding the usual derives and attribute macros to your items. As long as you invoke your plugin’s build function, the manual steps are handled automatically.
 
 While there are ongoing discussions about auto-registering types by default in Bevy—potentially making part of this crate redundant—the remaining functionality should continue to provide quality-of-life improvements for bevy related development.
