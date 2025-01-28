@@ -4,10 +4,10 @@ on:
     # Trigger the workflow on push and pull requests to the main branch
     push:
         branches:
-            - nightly
+            - main
     pull_request:
         branches:
-            - nightly
+            - main
 
 env:
     CARGO_TERM_COLOR: always
