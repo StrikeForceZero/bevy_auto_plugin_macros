@@ -40,3 +40,23 @@ jobs:
               run: |
                   echo "Testing with ${{ matrix.toolchain }} and features: ${{ matrix.toolchain }},${{ matrix.feature-set }}"
                   cargo test --features "${{ matrix.toolchain }},${{ matrix.feature-set }}"
+    doc-test:
+        runs-on: ubuntu-latest
+        steps:
+            # Checkout the repository
+            -   name: Checkout code
+                uses: actions/checkout@v3
+            
+            # Install Rust with nightly toolchain
+            -   name: Install Rust (nightly)
+                uses: actions-rs/toolchain@v1
+                with:
+                    profile: minimal
+                    toolchain: nightly
+                    override: true
+            
+            # Compile documentation with nightly
+            -   name: Compile Rust documentation
+                run: |
+                    echo "Compiling Rust documentation"
+                    cargo +nightly doc --features=nightly --no-deps
