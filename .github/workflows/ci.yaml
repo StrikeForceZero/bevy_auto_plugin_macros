@@ -40,6 +40,7 @@ jobs:
               run: |
                   echo "Testing with ${{ matrix.toolchain }} and features: ${{ matrix.toolchain }},${{ matrix.feature-set }}"
                   cargo test --features "${{ matrix.toolchain }},${{ matrix.feature-set }}"
+
     doc-test:
         runs-on: ubuntu-latest
         steps:
@@ -60,3 +61,39 @@ jobs:
                 run: |
                     echo "Compiling Rust documentation"
                     cargo +nightly doc --features=nightly --no-deps
+
+    rustfmt:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+    
+            - name: Install Rust (nightly)
+              uses: actions-rs/toolchain@v1
+              with:
+                  profile: minimal
+                  toolchain: nightly
+                  override: true
+    
+            - name: Run rustfmt
+              run: |
+                  echo "Checking code formatting with rustfmt (nightly)"
+                  cargo +nightly fmt --all -- --check
+
+    clippy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Install Rust (nightly)
+              uses: actions-rs/toolchain@v1
+              with:
+                  profile: minimal
+                  toolchain: nightly
+                  override: true
+
+            - name: Run clippy
+              run: |
+                  echo "Running clippy for lint checks (nightly)"
+                  cargo +nightly clippy --all-targets --all-features -- -D warnings
