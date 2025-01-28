@@ -1,8 +1,9 @@
 [package]
 name = "bevy_auto_plugin_shared"
 version = "0.1.0"
+description = "shared lib for bevy_auto_plugin"
 edition = "2021"
-publish = false
+publish = true
 
 [lib]
 

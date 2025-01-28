@@ -2,8 +2,9 @@
 name = "bevy_auto_plugin_proc_macros"
 version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
+description = "proc macros for bevy_auto_plugin"
 edition = "2021"
-publish = false
+publish = true
 
 [lib]
 proc-macro = true

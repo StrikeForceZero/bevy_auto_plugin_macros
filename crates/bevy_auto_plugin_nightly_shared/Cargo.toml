@@ -2,8 +2,9 @@
 name = "bevy_auto_plugin_nightly_shared"
 version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
+description = "shared lib for bevy_auto_plugin that require nightly rust"
 edition = "2021"
-publish = false
+publish = true
 
 [lib]
 
