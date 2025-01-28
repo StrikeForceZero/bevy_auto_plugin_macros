@@ -3,6 +3,7 @@ name = "nightly_shared"
 version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 edition = "2021"
+publish = false
 
 [lib]
 

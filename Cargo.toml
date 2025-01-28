@@ -3,6 +3,7 @@ name = "bevy_auto_plugin_macros"
 version = "0.0.0"
 authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 edition = "2021"
+publish = true
 
 [features]
 default = []
