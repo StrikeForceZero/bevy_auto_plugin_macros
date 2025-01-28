@@ -54,7 +54,6 @@ mod plugin_module {
     pub struct FooResourceWithGeneric<T>(T);
 }
 
-#[auto_plugin(app=app)]
 fn plugin(app: &mut App) {
     plugin_module::init(app);
 }
