@@ -5,13 +5,14 @@ authors = ["Brett Striker <strikeforcezero@gmail.com>"]
 repository = "https://github.com/StrikeForceZero/bevy_auto_plugin"
 license = "MIT OR Apache-2.0"
 description = "Procedural macros to simplify and streamline the creation of Bevy plugins by automating the registration of types, initialization of resources, and addition of events"
-edition = "2021"
+edition = "2024"
 publish = true
 
 [features]
-default = []
+default = ["auto_register_plugins"]
 # unused (CI)
 stable = []
+auto_register_plugins = ["bevy_auto_plugin_nightly_proc_macros/auto_register_plugins"]
 # nightly - optional
 nightly = ["nightly_proc_macro_span"]
 nightly_proc_macro_span = ["bevy_auto_plugin_nightly_proc_macros/nightly_proc_macro_span"]
@@ -33,6 +34,7 @@ bevy_core = { version = "0.15" }
 bevy_reflect = { version = "0.15" }
 bevy_internal = { version = "0.15" }
 bevy_ecs = { version = "0.15" }
+bevy_registration = { version = "0.2" }
 proc-macro2 = "1"
 syn = { version = "2", features = ["full"] }
 quote = "1"
@@ -48,6 +50,7 @@ bevy_app = { workspace = true, default-features = false }
 bevy_core = { workspace = true }
 bevy_reflect = { workspace = true }
 bevy_ecs = { workspace = true }
+bevy_registration = { workspace = true }
 internal_test_util = { path = "crates/internal_test_util" }
 trybuild = "1.0"
 log = { workspace = true }

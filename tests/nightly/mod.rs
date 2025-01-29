@@ -18,3 +18,5 @@ mod auto_register_type;
 mod auto_register_type_generic;
 #[cfg(feature = "nightly_proc_macro_span")]
 mod ui_tests;
+#[cfg(feature = "nightly_proc_macro_span")]
+mod auto_register_plugin;

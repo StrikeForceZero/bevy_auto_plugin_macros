@@ -1,6 +1,7 @@
 use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
-
+#[cfg(feature = "auto_register_plugins")]
+use bevy_registration::*;
 #[cfg(feature = "missing_auto_plugin_check")]
 use bevy_auto_plugin_nightly_shared::files_missing_plugin_ts;
 #[cfg(feature = "nightly_proc_macro_span")]
@@ -103,7 +104,7 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
 
     // Parse the input function
     let input = parse_macro_input!(input as ItemFn);
-    let _func_name = &input.sig.ident;
+    let func_name = &input.sig.ident;
     let func_body = &input.block;
     let func_sig = &input.sig;
     let func_vis = &input.vis;
@@ -150,6 +151,12 @@ pub fn auto_plugin(attr: CompilerStream, input: CompilerStream) -> CompilerStrea
             #injected_code
             #func_body
         }
+    };
+    
+    #[cfg(feature = "auto_register_plugins")]
+    let expanded = quote! {
+        #expanded
+        bevy_registration::app!(#func_name);
     };
 
     CompilerStream::from(expanded)

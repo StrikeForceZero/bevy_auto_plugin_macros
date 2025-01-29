@@ -11,8 +11,12 @@ publish = true
 [lib]
 proc-macro = true
 
+[features]
+auto_register_plugins = ["bevy_registration"]
+
 [dependencies]
 bevy_auto_plugin_shared = { workspace = true }
+bevy_registration = { workspace = true, optional = true }
 proc-macro2 = { workspace = true }
 syn = { workspace = true }
 quote = { workspace = true }

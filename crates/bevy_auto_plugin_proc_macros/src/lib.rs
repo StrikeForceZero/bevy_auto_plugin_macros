@@ -1,6 +1,9 @@
 use proc_macro::TokenStream as CompilerStream;
 use proc_macro2::TokenStream as MacroStream;
 
+#[cfg(feature = "auto_register_plugins")]
+use bevy_registration::*;
+
 use bevy_auto_plugin_shared::util::{
     inject_module, items_with_attribute_macro, ItemWithAttributeMatch,
 };
@@ -114,6 +117,12 @@ fn auto_plugin_inner(mut module: ItemMod, init_name: &Ident) -> Result<MacroStre
                     #auto_init_resources
                     #auto_names
                 }
+            })
+        })?;
+        #[cfg(feature = "auto_register_plugins")]
+        inject_module(&mut module, move || {
+            parse2::<Item>(quote! {
+                bevy_registration::app!(#init_name);
             })
         })?;
     }
